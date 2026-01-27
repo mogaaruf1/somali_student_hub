@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "Curriculum",
+        "description": "Manhaj casri ah oo u diyaarsan habka caalamiga ah. Waxaad baran kartaa Coding, Design, Business & more.",
+        "icon": "BookOpen",
+        "color": "bg-purple-500 shadow-purple-500/20",
+        "delay": 0.6
+    },
+    {
+        "id": 2,
+        "title": "Community",
+        "description": "Ku biir kumanaan arday Soomaaliyeed ah oo is caawiya. Wadaag aqoontaada, hel asxaab cusub.",
+        "icon": "Users",
+        "color": "bg-blue-500 shadow-blue-500/20",
+        "delay": 0.8
+    },
+    {
+        "id": 3,
+        "title": "AI Tutor",
+        "description": "Ka hel jawaab kasto oo aad u baahan tahay Macalin AI ah oo 24/7 kuu diyaarsan. Ha istaagin!",
+        "icon": "Cpu",
+        "color": "bg-cyan-500 shadow-cyan-500/20",
+        "delay": 1.0,
+        "highlight": true
+    }
+]

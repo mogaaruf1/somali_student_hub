@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Somali Student Hub High Fidelity Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2D7FF9", // Electric Blue
+                        "cyan-glow": "#00F2FF", // Cyan Glow
+                        "navy-deep": "#0B1120", // Deep Navy
+                        "accent-teal": "#2DD4BF",
+                    },
+                    fontFamily: {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-navy-deep text-slate-100 antialiased selection:bg-primary/30;
+                background-image: radial-gradient(circle at 50% 0%, #1e3a8a 0%, #0f172a 35%, #0B1120 100%);
+                background-attachment: fixed;
+            }
+        }
+        .hero-glow-title {
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.4), 0 0 60px rgba(45, 127, 249, 0.2);
+        }
+        .text-gradient-electric {
+            background: linear-gradient(to right, #00F2FF, #2D7FF9, #00F2FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 6s linear infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .glass-nav {
+            background: rgba(11, 17, 32, 0.6);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }.glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+        .premium-search-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 1.5rem;
+        }
+        .premium-search-glass:focus-within {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 30px rgba(45, 127, 249, 0.15);
+        }
+        .btn-explore {
+            background: linear-gradient(180deg, #2D7FF9 0%, #1d4ed8 100%);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 0 #1e3a8a, 0 0 25px rgba(45, 127, 249, 0.3);
+            border-radius: 1.5rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-explore:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1e3a8a, 0 0 15px rgba(45, 127, 249, 0.3);
+        }
+        .btn-explore:hover {
+            box-shadow: 0 5px 0 #1e3a8a, 0 0 35px rgba(45, 127, 249, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-community {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            border-radius: 1.5rem;
+        }
+        .btn-community:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .headline-tight {
+            letter-spacing: -0.04em;
+        }
+        .live-pulse {
+            box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+        }
+        .glass-icon-container {
+            position: relative;
+            isolation: isolate;
+        }
+        .glass-icon-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .floating-top-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .floating-top-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            border-color: rgba(0, 242, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden" id="top">
+<div class="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-900/10 rounded-full blur-[140px] pointer-events-none"></div>
+<nav class="sticky top-0 z-[100] glass-nav w-full">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="w-10 h-10 bg-primary/90 rounded-xl flex items-center justify-center text-white shadow-[0_0_20px_rgba(45,127,249,0.3)] transition-transform duration-300 group-hover:scale-105 border border-white/10">
+<span class="material-symbols-outlined text-2xl font-light">school</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white headline-tight">Somali Hub <span class="text-slate-500 font-normal ml-1">Masterclass</span></h1>
+</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Platform</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Curriculum</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Mentors</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">AI Tutor</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors">Sign In</button>
+<button class="bg-white text-navy-deep px-6 py-2.5 rounded-2xl text-sm font-bold shadow-xl hover:bg-slate-100 transition-all border border-transparent hover:border-white/50">
+                    Get Started
+                </button>
+</div>
+</div>
+</nav>
+<main class="relative">
+<section class="relative pt-32 pb-24 px-6">
+<div class="max-w-5xl mx-auto text-center">
+<div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 text-[11px] font-bold uppercase tracking-[0.2em] mb-10 shadow-lg backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default">
+<div class="flex items-center gap-2.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-green-500 live-pulse"></span>
+</span>
+<span class="text-green-400 font-extrabold tracking-widest">LIVE</span>
+</div>
+<span class="opacity-20 text-white text-lg font-light">|</span>
+<span class="text-slate-200">The Future of Somali Education</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-extrabold text-white leading-[1.05] headline-tight mb-8">
+                    Mustaqbalka <br/>
+<span class="text-gradient-electric hero-glow-title pb-2">Waxbarashada</span>
+<span class="block text-4xl md:text-5xl mt-4 opacity-90 text-slate-200">Soomaaliya</span>
+</h1>
+<p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-14 leading-relaxed font-light">
+                    Premium resources meeting Web3 innovation. Access world-class curriculum, AI-powered mentorship, and a global Somali academic network.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="w-full sm:w-auto min-w-[220px] h-14 btn-explore text-white font-bold text-base flex items-center justify-center gap-3 group">
+<svg class="w-5 h-5 transition-transform group-hover:rotate-45 duration-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="10"></circle>
+<polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+</svg>
+                        Explore Hub
+                    </button>
+<button class="w-full sm:w-auto min-w-[220px] h-14 btn-community text-white font-bold text-base flex items-center justify-center gap-3 group">
+<svg class="w-5 h-5 transition-transform group-hover:scale-110 duration-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+                        Join Community
+                    </button>
+</div>
+</div>
+</section>
+<section class="max-w-3xl mx-auto px-6 mb-32">
+<div class="premium-search-glass p-2 flex items-center gap-2 group">
+<div class="pl-5 text-slate-500 group-focus-within:text-cyan-glow transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-transparent border-none focus:ring-0 text-white placeholder-slate-500 py-4 text-lg font-light" placeholder="Search Masterclasses or AI Tutor..." type="text"/>
+<div class="hidden sm:flex items-center gap-2 mr-4">
+<kbd class="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-xs font-mono group-focus-within:border-cyan-glow/30 group-focus-within:text-cyan-glow transition-colors">⌘K</kbd>
+</div>
+<button class="bg-white text-navy-deep px-7 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition-all shadow-lg">
+                    Search
+                </button>
+</div>
+</section>
+<section class="max-w-7xl mx-auto px-6 pb-32">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-card p-10 flex flex-col h-full group">
+<div class="size-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 border border-primary/20 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">auto_stories</span>
+</div>
+<div class="flex-grow">
+<h3 class="text-2xl font-bold text-white mb-4 headline-tight">Expert Curriculum</h3>
+<p class="text-slate-400 leading-relaxed mb-8 font-light">Master-level educational resources tailored for high-achieving Somali students.</p>
+<div class="w-full h-52 glass-icon-container bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden mb-8 border border-white/5 flex items-center justify-center group-hover:border-primary/30 transition-colors">
+<div class="relative w-32 h-32 opacity-80 group-hover:scale-110 transition-transform duration-700">
+<svg class="w-full h-full drop-shadow-[0_0_20px_rgba(45,127,249,0.3)]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(255,255,255,0.4);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(45,127,249,0.2);stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<path d="M100 40 L160 70 L100 100 L40 70 Z" fill="url(#grad1)" stroke="rgba(255,255,255,0.5)" stroke-width="2"></path>
+<path d="M40 70 L100 100 L100 160 L40 130 Z" fill="rgba(45,127,249,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"></path>
+<path d="M160 70 L160 130 L100 160 L100 100 Z" fill="rgba(45,127,249,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"></path>
+</svg>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-primary font-bold text-sm group/link" href="#">
+                        Browse Masterclasses 
+                        <span class="material-symbols-outlined text-lg transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="glass-card p-10 flex flex-col h-full group">
+<div class="size-14 rounded-2xl bg-cyan-glow/10 flex items-center justify-center text-cyan-glow mb-8 border border-cyan-glow/20 group-hover:bg-cyan-glow/20 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">groups</span>
+</div>
+<div class="flex-grow">
+<h3 class="text-2xl font-bold text-white mb-4 headline-tight">Web3 Community</h3>
+<p class="text-slate-400 leading-relaxed mb-8 font-light">Decentralized learning networks connecting Somali talent from Mogadishu to London.</p>
+<div class="w-full h-52 glass-icon-container bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden mb-8 border border-white/5 flex items-center justify-center group-hover:border-cyan-glow/30 transition-colors">
+<div class="relative w-32 h-32 opacity-80 group-hover:scale-110 transition-transform duration-700">
+<svg class="w-full h-full drop-shadow-[0_0_20px_rgba(0,242,255,0.3)]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="grad2" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(255,255,255,0.4);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(0,242,255,0.2);stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<circle cx="100" cy="100" fill="url(#grad2)" r="35" stroke="rgba(255,255,255,0.5)" stroke-width="2"></circle>
+<circle cx="60" cy="140" fill="rgba(0,242,255,0.1)" r="25" stroke="rgba(255,255,255,0.2)" stroke-width="1"></circle>
+<circle cx="140" cy="60" fill="rgba(0,242,255,0.1)" r="25" stroke="rgba(255,255,255,0.2)" stroke-width="1"></circle>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1" x1="100" x2="60" y1="100" y2="140"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1" x1="100" x2="140" y1="100" y2="60"></line>
+</svg>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-cyan-glow font-bold text-sm group/link" href="#">
+                        Join the Network
+                        <span class="material-symbols-outlined text-lg transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="glass-card p-10 flex flex-col h-full group">
+<div class="size-14 rounded-2xl bg-white/10 flex items-center justify-center text-white mb-8 border border-white/20 group-hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">smart_toy</span>
+</div>
+<div class="flex-grow">
+<h3 class="text-2xl font-bold text-white mb-4 headline-tight">AI Tutorship</h3>
+<p class="text-slate-400 leading-relaxed mb-8 font-light">24/7 personalized academic guidance powered by advanced language models.</p>
+<div class="w-full h-52 glass-icon-container bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden mb-8 border border-white/5 flex items-center justify-center group-hover:border-white/30 transition-colors relative">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+<div class="relative w-32 h-32 opacity-80 group-hover:scale-110 transition-transform duration-700">
+<svg class="w-full h-full drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="grad3" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(255,255,255,0.6);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<rect fill="url(#grad3)" height="70" rx="10" stroke="rgba(255,255,255,0.5)" stroke-width="2" width="70" x="65" y="65"></rect>
+<circle cx="100" cy="100" fill="rgba(255,255,255,0.2)" r="15"></circle>
+<path d="M65 80 L50 60" stroke="rgba(255,255,255,0.3)" stroke-width="2"></path>
+<path d="M135 80 L150 60" stroke="rgba(255,255,255,0.3)" stroke-width="2"></path>
+<path d="M65 120 L50 140" stroke="rgba(255,255,255,0.3)" stroke-width="2"></path>
+<path d="M135 120 L150 140" stroke="rgba(255,255,255,0.3)" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-white font-bold text-sm group/link" href="#">
+                        Launch AI Tutor
+                        <span class="material-symbols-outlined text-lg transition-transform group-hover/link:translate-x-1">bolt</span>
+</a>
+</div>
+</div>
+</section>
+<footer class="border-t border-white/5 py-12 px-6 mt-20 relative overflow-hidden bg-navy-deep">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+<div class="flex items-center gap-3">
+<div class="bg-white/5 p-2.5 rounded-xl border border-white/10">
+<span class="material-symbols-outlined text-xl text-primary font-light">school</span>
+</div>
+<h2 class="text-lg font-bold text-white headline-tight">Somali Student Hub</h2>
+</div>
+<div class="flex gap-10 text-slate-500 text-sm font-medium">
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-6">
+<p class="text-slate-600 text-xs font-medium tracking-wider uppercase">
+                        © 2026 Somali Student Hub
+                    </p>
+<a class="floating-top-btn w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-cyan-glow" href="#top" title="Back to Top">
+<span class="material-symbols-outlined text-lg">arrow_upward</span>
+</a>
+</div>
+</div>
+</footer>
+</main>
+
+</body></html>
