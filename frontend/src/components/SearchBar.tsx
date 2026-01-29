@@ -45,7 +45,21 @@ export function SearchBar() {
             const querySnapshot = await getDocs(q);
             const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-            setResults(data || []);
+            if (data.length > 0) {
+                setResults(data);
+            } else {
+                // Fallback for legacy field naming (Title)
+                const qFallback = query(
+                    collection(db, "resources"),
+                    orderBy("Title"),
+                    startAt(val),
+                    endAt(val + "\uf8ff"),
+                    limit(5)
+                );
+                const snapshotFallback = await getDocs(qFallback);
+                const fallbackData = snapshotFallback.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setResults(fallbackData || []);
+            }
         } catch (err) {
             console.error("Firebase search failed:", err);
             // Mock results for demo if it fails (e.g. collection doesn't exist yet)

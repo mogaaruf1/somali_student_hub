@@ -7,6 +7,10 @@ import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, User } from "firebase/auth";
 import { LogOut, User as UserIcon, Menu, X, Rocket, GraduationCap, Globe, LayoutDashboard } from "lucide-react";
 
+const ADMIN_EMAILS = ["muse@gmail.com", "mohamedabdifitah114@gmail.com", "admin@somali-student-hub.com", "Kct@gmail.com"].map(
+    (email) => email.toLowerCase()
+);
+
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [user, setUser] = useState<User | null>(null);
@@ -50,11 +54,13 @@ export function Navbar() {
         }
     };
 
+    const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
+
     const navLinks = [
         { name: "Our Features", href: "/#features", icon: Rocket },
         { name: "Community", href: "/#community", icon: Globe },
         { name: "Masterclass", href: "/#masterclass", icon: GraduationCap },
-        { name: "Admin", href: "/admin", icon: LayoutDashboard },
+        ...(isAdmin ? [{ name: "Admin", href: "/admin", icon: LayoutDashboard }] : [])
     ];
 
     return (
@@ -104,6 +110,7 @@ export function Navbar() {
                                 </Link>
                                 <button
                                     onClick={handleSignOut}
+                                    aria-label="Sign out"
                                     className="p-2 hover:bg-white/5 rounded-lg transition-colors text-white/30 hover:text-red-400 cursor-pointer"
                                 >
                                     <LogOut className="w-4 h-4" />
@@ -130,6 +137,7 @@ export function Navbar() {
                     <button
                         className="md:hidden p-2 text-white/70 hover:text-white"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                     >
                         {isMobileMenuOpen ? <X /> : <Menu />}
                     </button>

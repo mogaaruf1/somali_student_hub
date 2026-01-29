@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { Navbar } from "@/components/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -15,21 +15,36 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// --- TYPES ---
+interface Enrollment {
+    id: string;
+    studentName: string;
+    studentEmail: string;
+    studentPhone: string;
+    resourceTitle: string;
+    resourceId: string;
+    status: "pending" | "approved" | "rejected";
+    enrolledAt: any; // Firestore Timestamp
+}
+
 // --- CONFIG: ADMIN EMAILS ---
-const ADMIN_EMAILS = ["muse@gmail.com", "mohamedabdifitah114@gmail.com", "admin@somali-student-hub.com", "Kct@gmail.com"];
+const ADMIN_EMAILS = ["muse@gmail.com", "mohamedabdifitah114@gmail.com", "admin@somali-student-hub.com", "Kct@gmail.com"].map(
+    (email) => email.toLowerCase()
+);
 
 export default function AdminDashboard() {
     const router = useRouter();
-    const [enrollments, setEnrollments] = useState<any[]>([]);
+    const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [isAuthorized, setIsAuthorized] = useState(false);
 
     useEffect(() => {
         const authUnsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            if (currentUser && ADMIN_EMAILS.includes(currentUser.email || "")) {
+            const email = (currentUser?.email || "").toLowerCase();
+            if (currentUser && ADMIN_EMAILS.includes(email)) {
                 setIsAuthorized(true);
             } else {
                 setIsAuthorized(false);
@@ -42,7 +57,7 @@ export default function AdminDashboard() {
             const data = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            }));
+            } as Enrollment));
             setEnrollments(data);
             setLoading(false);
         });
@@ -81,7 +96,7 @@ export default function AdminDashboard() {
 
     const exportToCSV = () => {
         const headers = ["ID", "Student Name", "Email", "Phone", "Course", "Status", "Date"];
-        const rows = enrollments.map(e => [
+        const rows = enrollments.map((e: Enrollment) => [
             e.id,
             `"${e.studentName || 'N/A'}"`,
             e.studentEmail,
@@ -93,7 +108,7 @@ export default function AdminDashboard() {
 
         const csvContent = "data:text/csv;charset=utf-8,"
             + headers.join(",") + "\n"
-            + rows.map(r => r.join(",")).join("\n");
+            + rows.map((r: any[]) => r.join(",")).join("\n");
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");

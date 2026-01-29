@@ -69,9 +69,10 @@ export default function ResourceDetail() {
 
             console.log("Enrollment successful! Doc ID:", docRef.id);
 
-            // Trigger Email Notification (Internal API)
+            // Trigger Email Notification (External Backend API)
             try {
-                await fetch('/api/notify', {
+                const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+                await fetch(`${backendUrl}/api/notify`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

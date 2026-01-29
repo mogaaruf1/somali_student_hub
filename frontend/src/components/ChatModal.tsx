@@ -32,7 +32,8 @@ export function ChatModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         setIsLoading(true);
 
         try {
-            const res = await fetch('/api/chat', {
+            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+            const res = await fetch(`${backendUrl}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userMsg })
@@ -81,6 +82,7 @@ export function ChatModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                             </div>
                             <button
                                 onClick={onClose}
+                                aria-label="Close chat"
                                 className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40"
                             >
                                 <X className="w-6 h-6" />
@@ -98,8 +100,8 @@ export function ChatModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div className={`max-w-[85%] p-4 rounded-2xl flex gap-3 ${msg.role === 'user'
-                                            ? 'bg-cyan-500 text-black font-medium text-sm'
-                                            : 'bg-white/5 text-white/80 text-sm border border-white/10'
+                                        ? 'bg-cyan-500 text-black font-medium text-sm'
+                                        : 'bg-white/5 text-white/80 text-sm border border-white/10'
                                         }`}>
                                         {msg.role === 'assistant' && <Bot className="w-4 h-4 mt-0.5 shrink-0" />}
                                         {msg.role === 'user' && <User className="w-4 h-4 mt-0.5 shrink-0" />}
@@ -131,6 +133,7 @@ export function ChatModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                                 <button
                                     onClick={handleSend}
                                     disabled={!input.trim() || isLoading}
+                                    aria-label="Send message"
                                     className="bg-cyan-500 p-3 rounded-xl text-black hover:scale-105 active:scale-95 transition-all shadow-lg shadow-cyan-500/20 disabled:opacity-50"
                                 >
                                     <Send className="w-5 h-5" />

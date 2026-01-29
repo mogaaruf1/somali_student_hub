@@ -24,8 +24,7 @@ export function FeatureCard({ title, description, icon: Icon, color, delay = 0, 
                 }`}
         >
             <div
-                className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${color}`}
-                style={{ boxShadow: `0 0 20px rgba(var(--icon-color), 0.2)` }}
+                className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-[0_0_20px_rgba(34,211,238,0.2)] ${color}`}
             >
                 <Icon className="w-8 h-8 text-white" />
             </div>
